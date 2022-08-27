@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "35695570798",
+    "project_id": "society-management-syste-1257d",
+    "storage_bucket": "society-management-syste-1257d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35695570798:android:55fffe82a2275a7b661b7f",
+        "android_client_info": {
+          "package_name": "com.example.sms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35695570798-sojolagae7h6pok4q0mq4uvrtaoh4qvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxb4XocMjLN2F4jgbBj4ih2gNAlC3wPnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35695570798-sojolagae7h6pok4q0mq4uvrtaoh4qvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
