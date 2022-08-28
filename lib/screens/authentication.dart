@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+//get
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+//provider
 import 'package:provider/provider.dart';
 import 'package:sms/provider/app.dart';
-import 'package:sms/provider/googleauth.dart';
+import 'package:sms/provider/auth.dart';
+//firebase
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sms/firebase_options.dart';
+//dp
 import 'package:shared_preferences/shared_preferences.dart';
-
+//models
 import 'package:sms/models/user.dart';
+import 'package:sms/screens/admin_view.dart';
+//services
 import 'package:sms/services/user.dart';
-
+//screens
 import 'home.dart';
+import 'package:sms/screens/resident_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -22,28 +29,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> with ChangeNotifier {
-  late User _user;
-  Status _status = Status.Uninitialized;
-  UserServices _userServices = UserServices();
-
-  late UserModel _userModel;
-
-  UserModel get userModel => _userModel;
-  Status get status => _status;
-  User get user => _user;
-
-  Future<bool> initialsizeUserModel() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? _userId = preferences.getString('id');
-    _userModel = await _userServices.getUserById(_userId!);
-    notifyListeners();
-    if (_userModel == null) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -63,6 +48,8 @@ class _LoginViewState extends State<LoginView> with ChangeNotifier {
 
   @override
   Widget build(BuildContext context) {
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    final AppProvider appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -96,25 +83,17 @@ class _LoginViewState extends State<LoginView> with ChangeNotifier {
                     final email = _email.text;
                     final password = _password.text;
                     try {
-                      final usercredential = await FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                              email: email, password: password)
-                          .then((userCredentials) async {
-                        _user = userCredentials.user!;
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        await prefs.setString("id", _user.uid);
-                        if (!await _userServices.doesUserExist(_user.uid)) {
-                          _userServices.createUser(
-                              id: _user.uid, role: "default");
-                          await initialsizeUserModel();
+                      Map result =
+                          await authProvider.signInWithCred(email, password);
+                      if (result['success']) {
+                        if (result['role'] == "resident") {
+                          Get.to(ResidentView());
+                        } else if (result['role'] == "admin") {
+                          Get.to(AdminView());
                         } else {
-                          await initialsizeUserModel();
+                          Get.to(HomeScreen());
                         }
-                      });
-                      print(usercredential);
-
-                      Get.to(HomeScreen());
+                      }
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         ScaffoldMessenger.of(context).showSnackBar(
