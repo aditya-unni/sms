@@ -23,7 +23,8 @@ class OverviewPage extends StatelessWidget {
               children: [
                 Container(
                     margin: EdgeInsets.only(
-                        top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+                        top: ResponsiveWidget.isSmallScreen(context) ? 86 : 6,
+                        left: ResponsiveWidget.isSmallScreen(context) ? 26 : 0),
                     child: CustomText(
                       text: menuController.activeItem.value,
                       size: 24,

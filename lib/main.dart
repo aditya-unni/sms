@@ -7,11 +7,17 @@ import 'package:sms/controllers/menu_controller.dart';
 import 'package:sms/controllers/navigation_controller.dart';
 import 'package:sms/helper/constants.dart';
 import 'package:sms/layout.dart';
+
 import 'package:sms/provider/app.dart';
 import 'package:sms/provider/auth.dart';
+import 'package:sms/provider/resident.dart';
+import 'package:sms/routing/routes.dart';
 
 import 'package:sms/screens/authentication.dart';
 import 'package:sms/screens/home.dart';
+
+//loading screen
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +38,22 @@ class MyApp extends StatelessWidget {
           value: AppProvider(),
         ),
         ChangeNotifierProvider.value(value: AuthProvider.init()),
+        ChangeNotifierProvider.value(value: ResProvider.init())
       ],
       child: GetMaterialApp(
+        initialRoute: rootRoute,
+        unknownRoute: GetPage(
+            name: '/not-found',
+            page: () => Text("Notfound"),
+            transition: Transition.fadeIn),
+        getPages: [
+          GetPage(
+              name: rootRoute,
+              page: () {
+                return AppScreensController();
+              }),
+          // GetPage(name: authenticationPageRoute, page: () => LoginView()),
+        ],
         debugShowCheckedModeBanner: false,
         title: "Dash",
         theme: ThemeData(
@@ -45,7 +65,7 @@ class MyApp extends StatelessWidget {
               TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
             }),
             primaryColor: Colors.blue),
-        home: SiteLayout(),
+        home: AppScreensController(),
       ),
     );
   }
@@ -57,12 +77,19 @@ class AppScreensController extends StatelessWidget {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
     switch (authProvider.status) {
       case Status.Uninitialized:
-
+        return SpinKitFadingCircle(
+          color: Colors.blue,
+          size: 50.0,
+        );
       case Status.Unauthenticated:
-      case Status.Authenticating:
         return LoginView();
+      case Status.Authenticating:
+        return SpinKitFadingCircle(
+          color: Colors.blue,
+          size: 50.0,
+        );
       case Status.Authenticated:
-        return HomeScreen();
+        return SiteLayout();
       default:
         return LoginView();
     }

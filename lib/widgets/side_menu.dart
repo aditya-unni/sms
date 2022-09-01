@@ -1,8 +1,10 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sms/constants/controllers.dart';
 import 'package:sms/constants/style.dart';
 import 'package:sms/helper/responsiveness.dart';
+import 'package:sms/provider/auth.dart';
 import 'package:sms/routing/routes.dart';
 import 'package:sms/widgets/custom_text.dart';
 import 'package:sms/widgets/side_menu_items.dart';
@@ -14,6 +16,7 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
+    final AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     return Container(
       color: light,
@@ -57,16 +60,24 @@ class SideMenu extends StatelessWidget {
             children: sideMenuItemRoutes
                 .map((item) => SideMenuItem(
                     itemName: item.name,
-                    onTap: () {
+                    onTap: () async {
                       if (item.route == authenticationPageRoute) {
                         Get.offAllNamed(authenticationPageRoute);
                         menuController
                             .changeActiveItemTo(overviewPageDisplayName);
+                        await authProvider.signOut();
                       }
+
                       if (!menuController.isActive(item.name)) {
                         menuController.changeActiveItemTo(item.name);
                         if (ResponsiveWidget.isSmallScreen(context)) Get.back();
                         navigationController.navigateTo(item.route);
+                      }
+                      if (menuController
+                          .isActive(authenticationPageDisplayName)) {
+                        menuController
+                            .changeActiveItemTo(overviewPageDisplayName);
+                        navigationController.navigateTo(overviewPageRoute);
                       }
                     }))
                 .toList(),

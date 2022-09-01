@@ -8,7 +8,8 @@ import 'package:sms/widgets/small_screen.dart';
 import 'widgets/top_nav.dart';
 
 class SiteLayout extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

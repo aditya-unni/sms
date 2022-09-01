@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 //provider
 import 'package:provider/provider.dart';
+import 'package:sms/layout.dart';
 import 'package:sms/provider/app.dart';
 import 'package:sms/provider/auth.dart';
 //firebase
@@ -14,6 +15,7 @@ import 'package:sms/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //models
 import 'package:sms/models/user.dart';
+import 'package:sms/routing/routes.dart';
 import 'package:sms/screens/admin_view.dart';
 //services
 import 'package:sms/services/user.dart';
@@ -40,9 +42,10 @@ class _LoginViewState extends State<LoginView> with ChangeNotifier {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     _email.dispose();
     _password.dispose();
+
     super.dispose();
   }
 
@@ -89,19 +92,24 @@ class _LoginViewState extends State<LoginView> with ChangeNotifier {
                         if (result['role'] == "resident") {
                           Get.to(ResidentView());
                         } else if (result['role'] == "admin") {
-                          Get.to(AdminView());
+                          Get.offAllNamed(overviewPageRoute);
                         } else {
                           Get.to(HomeScreen());
                         }
                       }
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("User not found")));
-                      } else if (e.code == 'wrong-password') {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Wrong password")));
+                      if (!result['success']) {
+                        if (result['message'] == 'user-not-found') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("User not found")));
+                        } else if (result['message'] == 'wrong-password') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Wrong password")));
+                        } else if (result['message'] == 'invalid-email') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Invalid Email")));
+                        }
                       }
+                    } on FirebaseAuthException catch (e) {
                     } on Exception catch (e) {
                       print('Something bad happened');
                       print(e.runtimeType);

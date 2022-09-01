@@ -52,7 +52,7 @@ class AuthProvider with ChangeNotifier {
     } on FirebaseException catch (e) {
       notifyListeners();
       // TODO
-      return {'success': false, 'message': e.toString()};
+      return {'success': false, 'message': e.code};
     }
   }
 

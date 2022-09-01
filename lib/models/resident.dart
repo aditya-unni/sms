@@ -15,7 +15,7 @@ class ResidentModel {
 
   //getters
   String get id => _id;
-  String get role => _name;
+  String get name => _name;
   String get address => _address;
   int get contact => _contact;
   String get email => _email;
