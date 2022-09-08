@@ -34,6 +34,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<Map<String, dynamic>> signInWithCred(email, password) async {
     try {
+      _status = Status.Authenticating;
       final usercredential = await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((userCredentials) async {
@@ -41,7 +42,7 @@ class AuthProvider with ChangeNotifier {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString("id", _user.uid);
         if (!await _userServices.doesUserExist(_user.uid)) {
-          _userServices.createUser(id: _user.uid, role: "default");
+          _userServices.createUser(id: _user.uid, name: "", role: "default");
           await initialsizeUserModel();
         } else {
           await initialsizeUserModel();
@@ -52,6 +53,7 @@ class AuthProvider with ChangeNotifier {
     } on FirebaseException catch (e) {
       notifyListeners();
       // TODO
+      _status = Status.Unauthenticated;
       return {'success': false, 'message': e.code};
     }
   }
@@ -82,7 +84,7 @@ class AuthProvider with ChangeNotifier {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString("id", _user.uid);
         if (!await _userServices.doesUserExist(_user.uid)) {
-          _userServices.createUser(id: _user.uid, role: "default");
+          _userServices.createUser(id: _user.uid, name: "", role: "default");
           await initialsizeUserModel();
         } else {
           await initialsizeUserModel();

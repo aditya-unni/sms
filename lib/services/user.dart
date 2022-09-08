@@ -6,10 +6,13 @@ class UserServices {
   String collection = "users";
   void createUser({
     required String id,
+    required String name,
     required String role,
   }) {
     firebaseFirestore.collection(collection).doc(id).set({
       "id": id,
+      "name": name,
+      "photo": "",
       "role": role,
     });
   }

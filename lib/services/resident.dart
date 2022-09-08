@@ -35,7 +35,8 @@ class ResidentServices {
                   "contact": contact,
                   "email": email,
                 }),
-                userServices.createUser(id: value.user.uid, role: "residents")
+                userServices.createUser(
+                    id: value.user.uid, name: name, role: "residents")
               }));
       app.delete();
       return {'success': true, 'message': 'success'};

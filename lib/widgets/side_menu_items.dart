@@ -1,3 +1,4 @@
+//@dart=2.9
 import 'package:flutter/material.dart';
 import 'package:sms/helper/responsiveness.dart';
 import 'package:sms/widgets/horizontal_menu_item.dart';
@@ -7,8 +8,7 @@ class SideMenuItem extends StatelessWidget {
   final String itemName;
   final Function onTap;
 
-  const SideMenuItem(
-      {required Key key, required this.itemName, required this.onTap})
+  const SideMenuItem({Key key, @required this.itemName, @required this.onTap})
       : super(key: key);
 
   @override

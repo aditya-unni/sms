@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
               TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
             }),
             primaryColor: Colors.blue),
-        home: AppScreensController(),
+        // home: AppScreensController(),
       ),
     );
   }

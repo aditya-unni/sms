@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "35695570798",
+    "firebase_url": "https://society-management-syste-1257d-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "society-management-syste-1257d",
     "storage_bucket": "society-management-syste-1257d.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "35695570798-sojolagae7h6pok4q0mq4uvrtaoh4qvq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "35695570798-sfnf25aviq8eq46i5lfsuk2sn4lsbbj6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sms"
+              }
             }
           ]
         }

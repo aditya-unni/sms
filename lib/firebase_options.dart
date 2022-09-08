@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '35695570798',
     projectId: 'society-management-syste-1257d',
     authDomain: 'society-management-syste-1257d.firebaseapp.com',
+    databaseURL: 'https://society-management-syste-1257d-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'society-management-syste-1257d.appspot.com',
     measurementId: 'G-9EJNPCW0DE',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:35695570798:android:55fffe82a2275a7b661b7f',
     messagingSenderId: '35695570798',
     projectId: 'society-management-syste-1257d',
+    databaseURL: 'https://society-management-syste-1257d-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'society-management-syste-1257d.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:35695570798:ios:f1d39be82d9f03e7661b7f',
     messagingSenderId: '35695570798',
     projectId: 'society-management-syste-1257d',
+    databaseURL: 'https://society-management-syste-1257d-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'society-management-syste-1257d.appspot.com',
     iosClientId: '35695570798-sfnf25aviq8eq46i5lfsuk2sn4lsbbj6.apps.googleusercontent.com',
     iosBundleId: 'com.example.sms',
@@ -76,6 +79,7 @@ class DefaultFirebaseOptions {
     appId: '1:35695570798:ios:f1d39be82d9f03e7661b7f',
     messagingSenderId: '35695570798',
     projectId: 'society-management-syste-1257d',
+    databaseURL: 'https://society-management-syste-1257d-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'society-management-syste-1257d.appspot.com',
     iosClientId: '35695570798-sfnf25aviq8eq46i5lfsuk2sn4lsbbj6.apps.googleusercontent.com',
     iosBundleId: 'com.example.sms',

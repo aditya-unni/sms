@@ -12,6 +12,9 @@ const propertiesPageRoute = "/properties";
 const staffsPageDisplayName = "Staffs";
 const staffsPageRoute = "/staffs";
 
+const chatsPageDisplayName = "Chats";
+const chatsPageRoute = "/chats";
+
 const authenticationPageDisplayName = "Log out";
 const authenticationPageRoute = "/auth";
 
@@ -27,5 +30,6 @@ List<MenuItem> sideMenuItemRoutes = [
   MenuItem(residentsPageDisplayName, residentsPageRoute),
   MenuItem(propertiesPageDisplayName, propertiesPageRoute),
   MenuItem(staffsPageDisplayName, staffsPageRoute),
+  MenuItem(chatsPageDisplayName, chatsPageRoute),
   MenuItem(authenticationPageDisplayName, authenticationPageRoute),
 ];
